@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.zq.po.Role" table="role" >
+        <!--建立类属性哪一个是主键  还要跟数据库当中主键进行对象-->
+        <id name="role_id" column="role_id" >
+            <generator class="native"/>
+        </id>
+        <!--建立类中的普通属性与数据库当中字段进行关联-->
+        <property name="role_name" column="role_name" />
+        <property name="role_memo" column="role_memo" />
+
+        <!--多对多-->
+        <!--多对多关系
+      name:当前集合属性名称
+      table:  多对多中间表  表名
+      <key column=""></key>  :当前表的外键
+      <many-to-many class="" column=""/>
+      class:集合中对象的全路径
+       column:集合中对象的外键
+    -->
+        <set name="users" table="user_role" inverse="true" cascade="save-update"><!--set属性名称-->
+            <key column="role_id"></key><!--外键-->
+            <many-to-many class="com.zq.po.User" column="user_id"></many-to-many>
+        </set>
+
+
+    </class>
+</hibernate-mapping>
